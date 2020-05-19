@@ -58,6 +58,9 @@ var (
 	MozillaPolicy24Date         = time.Date(2017, time.February, 28, 0, 0, 0, 0, time.UTC)
 	MozillaPolicy27Date         = time.Date(2020, time.January, 1, 0, 0, 0, 0, time.UTC)
 	AppleReducedLifetimeDate    = time.Date(2020, time.September, 1, 0, 0, 0, 0, time.UTC)
+	EtsiPSD2Date                = time.Date(2018, time.November, 1, 0, 0, 0, 0, time.UTC)
+	CABAltRegNumEvExtMandDate   = time.Date(2020, time.January, 31, 0, 0, 0, 0, time.UTC)
+	CABAltRegNumEvDate          = time.Date(2019, time.June, 21, 0, 0, 0, 0, time.UTC)
 )
 
 func FindTimeType(firstDate, secondDate asn1.RawValue) (int, int) {
