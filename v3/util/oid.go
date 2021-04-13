@@ -110,7 +110,6 @@ var (
 	IdEtsiPolicyQcpWeb                  = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 4}
 	IdQcsPkixQCSyntaxV2                 = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 11, 2}
 	CabfSubjectOrganizationIdentifier   = asn1.ObjectIdentifier{2, 5, 4, 97}
-	CabfExtensionOrganizationIdentifier = asn1.ObjectIdentifier{2, 23, 140, 3, 1}
 )
 
 const (
