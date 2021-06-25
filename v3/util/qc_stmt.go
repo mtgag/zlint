@@ -22,8 +22,8 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/zmap/zcrypto/x509"
 	"github.com/zmap/zcrypto/encoding/asn1"
+	"github.com/zmap/zcrypto/x509"
 )
 
 var EtsiQcStmtOidList = [...]*asn1.ObjectIdentifier{
