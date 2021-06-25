@@ -16,7 +16,6 @@ package util
 
 import (
 	"bytes"
-	"encoding/asn1"
 	"fmt"
 	"reflect"
 	"regexp"
@@ -24,6 +23,7 @@ import (
 	"unicode"
 
 	"github.com/zmap/zcrypto/x509"
+	"github.com/zmap/zcrypto/encoding/asn1"
 )
 
 var EtsiQcStmtOidList = [...]*asn1.ObjectIdentifier{
