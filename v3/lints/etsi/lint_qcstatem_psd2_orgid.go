@@ -25,8 +25,19 @@ import (
 
 type qcStatemPsd2OrgId struct{}
 
-func (l *qcStatemPsd2OrgId) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_psd2_orgid",
+		Description:   "For a PSD2 Certificate this lint checks that if the Legal Person Semantics Identifier is present, the subject:organizationIdentifier field has one of the allowed prefixes",
+		Citation:      "ETSI TS 119 495 V1.2.1, Sec. 5.2.1",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiPSD2Date,
+		Lint:          NewQcStatemPsd2OrgId,
+	})
+}
+
+func NewQcStatemPsd2OrgId() lint.LintInterface {
+	return &qcStatemPsd2OrgId{}
 }
 
 func (l *qcStatemPsd2OrgId) CheckApplies(c *x509.Certificate) bool {
@@ -72,15 +83,4 @@ func (l *qcStatemPsd2OrgId) Execute(c *x509.Certificate) *lint.LintResult {
 		}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_orgid",
-		Description:   "For a PSD2 Certificate this lint checks that if the Legal Person Semantics Identifier is present, the subject:organizationIdentifier field has one of the allowed prefixes",
-		Citation:      "ETSI TS 119 495 V1.2.1, Sec. 5.2.1",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiPSD2Date,
-		Lint:          &qcStatemPsd2OrgId{},
-	})
 }

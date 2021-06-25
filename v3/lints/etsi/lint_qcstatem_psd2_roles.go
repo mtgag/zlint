@@ -15,8 +15,7 @@ package etsi
  */
 
 import (
-	"encoding/asn1"
-
+	"github.com/zmap/zcrypto/encoding/asn1"
 	"github.com/zmap/zcrypto/x509"
 	"github.com/zmap/zlint/v3/lint"
 	"github.com/zmap/zlint/v3/util"
@@ -24,8 +23,19 @@ import (
 
 type qcStatemPsd2Roles struct{}
 
-func (l *qcStatemPsd2Roles) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_psd2_roles",
+		Description:   "Verifies that the PSD2 QC Statement extension contains only allowed role OIDs",
+		Citation:      "ETSI TS 119 495 V1.2.1, GEN-5.1-2",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiPSD2Date,
+		Lint:          NewQcStatemPsd2Roles,
+	})
+}
+
+func NewQcStatemPsd2Roles() lint.LintInterface {
+	return &qcStatemPsd2Roles{}
 }
 
 func (this *qcStatemPsd2Roles) getStatementOid() *asn1.ObjectIdentifier {
@@ -65,15 +75,4 @@ func (l *qcStatemPsd2Roles) Execute(c *x509.Certificate) *lint.LintResult {
 		return &lint.LintResult{Status: lint.Error, Details: errString}
 	}
 
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_roles",
-		Description:   "Verifies that the PSD2 QC Statement extension contains only allowed role OIDs",
-		Citation:      "ETSI TS 119 495 V1.2.1, GEN-5.1-2",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiPSD2Date,
-		Lint:          &qcStatemPsd2Roles{},
-	})
 }

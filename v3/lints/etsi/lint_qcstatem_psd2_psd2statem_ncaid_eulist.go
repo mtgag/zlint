@@ -27,8 +27,19 @@ type countryAndNCAIdPair struct {
 
 type qcStatemPsd2Psd2StatemNcaidEulist struct{}
 
-func (l *qcStatemPsd2Psd2StatemNcaidEulist) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "w_qcstatem_psd2_psd2statem_ncaid_eulist",
+		Description:   "If the country given in the PSD2 QcStatement NCAId field is found in the ETSI list in Annex D (see citation), then this lint checks that the corresponding NcaId is contained in the NcaId field of the PSD2 QcStatement",
+		Citation:      "ETSI TS 119 495, Annex D",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
+		Lint:          NewQcStatemPsd2Psd2StatemNcaidEulist,
+	})
+}
+
+func NewQcStatemPsd2Psd2StatemNcaidEulist() lint.LintInterface {
+	return &qcStatemPsd2Psd2StatemNcaidEulist{}
 }
 
 func (l *qcStatemPsd2Psd2StatemNcaidEulist) CheckApplies(c *x509.Certificate) bool {
@@ -92,15 +103,4 @@ func (l *qcStatemPsd2Psd2StatemNcaidEulist) Execute(c *x509.Certificate) *lint.L
 		}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "w_qcstatem_psd2_psd2statem_ncaid_eulist",
-		Description:   "If the country given in the PSD2 QcStatement NCAId field is found in the ETSI list in Annex D (see citation), then this lint checks that the corresponding NcaId is contained in the NcaId field of the PSD2 QcStatement",
-		Citation:      "ETSI TS 119 495, Annex D",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
-		Lint:          &qcStatemPsd2Psd2StatemNcaidEulist{},
-	})
 }

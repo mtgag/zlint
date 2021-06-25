@@ -22,8 +22,19 @@ import (
 
 type evOrgId struct{}
 
-func (l *evOrgId) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_ev_orgid",
+		Description:   "If the subject:organizationIdentifier field is present in an EV certificate, then this lint checks that the format of its contents is in conformance to the CAB/F EV Guidelines",
+		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sec. 9.2.8",
+		Source:        lint.CABFEVGuidelines,
+		EffectiveDate: util.CABAltRegNumEvDate,
+		Lint:          NewEvOrgId,
+	})
+}
+
+func NewEvOrgId() lint.LintInterface {
+	return &evOrgId{}
 }
 
 func (l *evOrgId) CheckApplies(c *x509.Certificate) bool {
@@ -42,15 +53,4 @@ func (l *evOrgId) Execute(c *x509.Certificate) *lint.LintResult {
 		return &lint.LintResult{Status: lint.Error, Details: errStr}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_ev_orgid",
-		Description:   "If the subject:organizationIdentifier field is present in an EV certificate, then this lint checks that the format of its contents is in conformance to the CAB/F EV Guidelines",
-		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sec. 9.2.8",
-		Source:        lint.CABFEVGuidelines,
-		EffectiveDate: util.CABAltRegNumEvDate,
-		Lint:          &evOrgId{},
-	})
 }

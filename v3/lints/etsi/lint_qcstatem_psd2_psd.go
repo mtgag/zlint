@@ -22,8 +22,19 @@ import (
 
 type qcStatemPsd2Psd struct{}
 
-func (l *qcStatemPsd2Psd) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_psd2_psd",
+		Description:   "Applies to ETSI PSD2 certificates the subject:OrganizationIdentifier of which is of the form 'PSD...' and checks whether the format of the subject:OrganizationIdentifier field is correct and whether the NCAId therein matches the one in the PSD2 statement.",
+		Citation:      "ETSI TS 119 495, '5.2.1 PSD2 Authorization Number or other recognized identifier'",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiPSD2Date,
+		Lint:          NewQcStatemPsd2Psd,
+	})
+}
+
+func NewQcStatemPsd2Psd() lint.LintInterface {
+	return &qcStatemPsd2Psd{}
 }
 
 func (l *qcStatemPsd2Psd) CheckApplies(c *x509.Certificate) bool {
@@ -64,15 +75,4 @@ func (l *qcStatemPsd2Psd) Execute(c *x509.Certificate) *lint.LintResult {
 		return &lint.LintResult{Status: lint.Error, Details: "Country in subject:OrganizationIdentifier and PSD2 QcStatement do not match"}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_psd",
-		Description:   "Applies to ETSI PSD2 certificates the subject:OrganizationIdentifier of which is of the form 'PSD...' and checks whether the format of the subject:OrganizationIdentifier field is correct and whether the NCAId therein matches the one in the PSD2 statement.",
-		Citation:      "ETSI TS 119 495, '5.2.1 PSD2 Authorization Number or other recognized identifier'",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiPSD2Date,
-		Lint:          &qcStatemPsd2Psd{},
-	})
 }

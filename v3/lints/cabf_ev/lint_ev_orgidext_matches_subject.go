@@ -24,8 +24,19 @@ import (
 
 type evOrgIdExtMatchesSubject struct{}
 
-func (l *evOrgIdExtMatchesSubject) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_ev_orgidext_matches_subject",
+		Description:   "The contents of the cabfOrganizationIdentifier extension must match the entries of the corresponding field in the subject DN.",
+		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sec. 9.2.8, 9.8.2",
+		Source:        lint.CABFEVGuidelines,
+		EffectiveDate: util.CABAltRegNumEvDate,
+		Lint:          NewEvOrgIdExtMatchesSubject,
+	})
+}
+
+func NewEvOrgIdExtMatchesSubject() lint.LintInterface {
+	return &evOrgIdExtMatchesSubject{}
 }
 
 func (l *evOrgIdExtMatchesSubject) CheckApplies(c *x509.Certificate) bool {
@@ -63,15 +74,4 @@ func (l *evOrgIdExtMatchesSubject) Execute(c *x509.Certificate) *lint.LintResult
 	}
 
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_ev_orgidext_matches_subject",
-		Description:   "The contents of the cabfOrganizationIdentifier extension must match the entries of the corresponding field in the subject DN.",
-		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sec. 9.2.8, 9.8.2",
-		Source:        lint.CABFEVGuidelines,
-		EffectiveDate: util.CABAltRegNumEvDate,
-		Lint:          &evOrgIdExtMatchesSubject{},
-	})
 }

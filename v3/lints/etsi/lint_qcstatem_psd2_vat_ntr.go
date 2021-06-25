@@ -22,8 +22,19 @@ import (
 
 type qcStatemPsd2VatNtr struct{}
 
-func (l *qcStatemPsd2VatNtr) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_psd2_vat_ntr",
+		Description:   "Applies to ETSI PSD2 certificates the subject:OrganizationIdentifier of which is of the form 'VAT...' or 'NTR...' or 'LEI... 'and checks whether the format of the subject:OrganizationIdentifier field is correct",
+		Citation:      "ETSI EN 319 412-1, Sec. '5.1.4 Legal person semantics identifier' ",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
+		Lint:          NewQcStatemPsd2VatNtr,
+	})
+}
+
+func NewQcStatemPsd2VatNtr() lint.LintInterface {
+	return &qcStatemPsd2VatNtr{}
 }
 
 func (l *qcStatemPsd2VatNtr) CheckApplies(c *x509.Certificate) bool {
@@ -55,15 +66,4 @@ func (l *qcStatemPsd2VatNtr) Execute(c *x509.Certificate) *lint.LintResult {
 		}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_vat_ntr",
-		Description:   "Applies to ETSI PSD2 certificates the subject:OrganizationIdentifier of which is of the form 'VAT...' or 'NTR...' or 'LEI... 'and checks whether the format of the subject:OrganizationIdentifier field is correct",
-		Citation:      "ETSI EN 319 412-1, Sec. '5.1.4 Legal person semantics identifier' ",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
-		Lint:          &qcStatemPsd2VatNtr{},
-	})
 }

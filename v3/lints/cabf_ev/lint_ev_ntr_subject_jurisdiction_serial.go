@@ -34,8 +34,19 @@ and/or 9.8.1.
 
 type evNtrSubjectJurisdiction struct{}
 
-func (l *evNtrSubjectJurisdiction) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_ev_ntr_subject_jurisdiction_serial",
+		Description:   "Checks that the consistency requirements about NTR regarding subject:jurisdiction...Name fields, subject:SerialNumber, and organization identifier are satisfied",
+		Citation:      "CA/Browser Forum EV Guidelines v1.7, Appendix H",
+		Source:        lint.CABFEVGuidelines,
+		EffectiveDate: util.CABAltRegNumEvDate,
+		Lint:          NewEvNtrSubjectJurisdiction,
+	})
+}
+
+func NewEvNtrSubjectJurisdiction() lint.LintInterface {
+	return &evNtrSubjectJurisdiction{}
 }
 
 func (l *evNtrSubjectJurisdiction) CheckApplies(c *x509.Certificate) bool {
@@ -99,15 +110,4 @@ func (l *evNtrSubjectJurisdiction) Execute(c *x509.Certificate) *lint.LintResult
 		return &lint.LintResult{Status: lint.Error, Details: "subject:SerialNumber does not contain the registration reference found in the subject:organizationIdentifier"}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_ev_ntr_subject_jurisdiction_serial",
-		Description:   "Checks that the consistency requirements about NTR regarding subject:jurisdiction...Name fields, subject:SerialNumber, and organization identifier are satisfied",
-		Citation:      "CA/Browser Forum EV Guidelines v1.7, Appendix H",
-		Source:        lint.CABFEVGuidelines,
-		EffectiveDate: util.CABAltRegNumEvDate,
-		Lint:          &evNtrSubjectJurisdiction{},
-	})
 }

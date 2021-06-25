@@ -22,8 +22,19 @@ import (
 
 type qcStatemPsd2PolicyRecomm struct{}
 
-func (l *qcStatemPsd2PolicyRecomm) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "w_qcstatem_psd2_policy_recommended",
+		Description:   "Check the requirement that EU Qualified Certificates include at least one of the QCP qualifiers.",
+		Citation:      "ETSI EN 319 412-4",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiPSD2Date,
+		Lint:          NewQcStatemPsd2PolicyRecomm,
+	})
+}
+
+func NewQcStatemPsd2PolicyRecomm() lint.LintInterface {
+	return &qcStatemPsd2PolicyRecomm{}
 }
 
 func (l *qcStatemPsd2PolicyRecomm) CheckApplies(c *x509.Certificate) bool {
@@ -37,15 +48,4 @@ func (l *qcStatemPsd2PolicyRecomm) Execute(c *x509.Certificate) *lint.LintResult
 	}
 
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "w_qcstatem_psd2_policy_recommended",
-		Description:   "Check the requirement that EU Qualified Certificates include at least one of the QCP qualifiers.",
-		Citation:      "ETSI EN 319 412-4",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiPSD2Date,
-		Lint:          &qcStatemPsd2PolicyRecomm{},
-	})
 }

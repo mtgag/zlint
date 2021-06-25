@@ -34,6 +34,21 @@ PSDBE-NBB-1234.567.890 (PSD Scheme, Belgium, NCA's identifier is NBB, Subject Un
 
 type evOrgIdWellFormed struct{}
 
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_ev_orgid_well_formed",
+		Description:   "Checks that the content of subject:jurisdiction and cabfOrganizationIdentifier extension are well-formed and compliant to the specified format.",
+		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sections 9.2.8 and 9.8.2",
+		Source:        lint.CABFEVGuidelines,
+		EffectiveDate: util.CABAltRegNumEvDate,
+		Lint:          NewEvOrgIdWellFormed,
+	})
+}
+
+func NewEvOrgIdWellFormed() lint.LintInterface {
+	return &evOrgIdWellFormed{}
+}
+
 func GetOrgIdFromSubjOrExt(c *x509.Certificate) (bool, util.ParsedEvOrgId) {
 
 	var result util.ParsedEvOrgId
@@ -48,10 +63,6 @@ func GetOrgIdFromSubjOrExt(c *x509.Certificate) (bool, util.ParsedEvOrgId) {
 		return false, result
 	}
 	return true, result
-}
-
-func (l *evOrgIdWellFormed) Initialize() error {
-	return nil
 }
 
 func (l *evOrgIdWellFormed) CheckApplies(c *x509.Certificate) bool {
@@ -94,15 +105,4 @@ func (l *evOrgIdWellFormed) Execute(c *x509.Certificate) *lint.LintResult {
 	}
 
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_ev_orgid_well_formed",
-		Description:   "Checks that the content of subject:jurisdiction and cabfOrganizationIdentifier extension are well-formed and compliant to the specified format.",
-		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sections 9.2.8 and 9.8.2",
-		Source:        lint.CABFEVGuidelines,
-		EffectiveDate: util.CABAltRegNumEvDate,
-		Lint:          &evOrgIdWellFormed{},
-	})
 }

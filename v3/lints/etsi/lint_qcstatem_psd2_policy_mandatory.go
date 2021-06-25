@@ -15,8 +15,7 @@ package etsi
  */
 
 import (
-	"encoding/asn1"
-
+	"github.com/zmap/zcrypto/encoding/asn1"
 	"github.com/zmap/zcrypto/x509"
 	"github.com/zmap/zlint/v3/lint"
 	"github.com/zmap/zlint/v3/util"
@@ -24,8 +23,19 @@ import (
 
 type qcStatemPsd2PolicyMandatory struct{}
 
-func (l *qcStatemPsd2PolicyMandatory) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_psd2_policy_mandatory",
+		Description:   "Tests various requirements regarding policy identifiers of EU Qualified Certificates",
+		Citation:      "ETSI EN 319 411-2: GEN-6.6.1-05, ETSI EN 319 412-4: Clause 4.3, ETSI EN 319 412-5: Clause 5",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiPSD2Date,
+		Lint:          NewQcStatemPsd2PolicyMandatory,
+	})
+}
+
+func NewQcStatemPsd2PolicyMandatory() lint.LintInterface {
+	return &qcStatemPsd2PolicyMandatory{}
 }
 
 func (l *qcStatemPsd2PolicyMandatory) CheckApplies(c *x509.Certificate) bool {
@@ -66,15 +76,4 @@ func (l *qcStatemPsd2PolicyMandatory) Execute(c *x509.Certificate) *lint.LintRes
 		return &lint.LintResult{Status: lint.Error, Details: "EU Qualified Certificate must at least contain one policy identifier (ETSI EN 319 411-2: GEN-6.6.1-05)"}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_policy_mandatory",
-		Description:   "Tests various requirements regarding policy identifiers of EU Qualified Certificates",
-		Citation:      "ETSI EN 319 411-2: GEN-6.6.1-05, ETSI EN 319 412-4: Clause 4.3, ETSI EN 319 412-5: Clause 5",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiPSD2Date,
-		Lint:          &qcStatemPsd2PolicyMandatory{},
-	})
 }

@@ -15,9 +15,9 @@ package etsi
  */
 
 import (
-	"encoding/asn1"
 	"fmt"
 
+	"github.com/zmap/zcrypto/encoding/asn1"
 	"github.com/zmap/zcrypto/x509"
 	"github.com/zmap/zlint/v3/lint"
 	"github.com/zmap/zlint/v3/util"
@@ -25,8 +25,19 @@ import (
 
 type qcStatemRepeatedStmt struct{}
 
-func (l *qcStatemRepeatedStmt) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_repeated_stmt",
+		Description:   "Checks that none of the ETSI QcStatements appear multiple times within the QcStatements.",
+		Citation:      "(Implicit requirement)",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
+		Lint:          NewQcStatemRepeatedStmt,
+	})
+}
+
+func NewQcStatemRepeatedStmt() lint.LintInterface {
+	return &qcStatemRepeatedStmt{}
 }
 
 func (l *qcStatemRepeatedStmt) CheckApplies(c *x509.Certificate) bool {
@@ -78,15 +89,4 @@ func (l *qcStatemRepeatedStmt) Execute(c *x509.Certificate) *lint.LintResult {
 		foundOidListSlice = append(foundOidListSlice, &oid)
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_repeated_stmt",
-		Description:   "Checks that none of the ETSI QcStatements appear multiple times within the QcStatements.",
-		Citation:      "(Implicit requirement)",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
-		Lint:          &qcStatemRepeatedStmt{},
-	})
 }

@@ -15,8 +15,7 @@ package cabf_ev
  */
 
 import (
-	"encoding/asn1"
-
+	"github.com/zmap/zcrypto/encoding/asn1"
 	"github.com/zmap/zcrypto/x509"
 	"github.com/zmap/zlint/v3/lint"
 	"github.com/zmap/zlint/v3/util"
@@ -24,8 +23,19 @@ import (
 
 type evOrgIdEncoding struct{}
 
-func (l *evOrgIdEncoding) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_ev_orgid_encoding",
+		Description:   "The organizationIdentifier MUST be encoded as a PrintableString or UTF8String",
+		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sec. 9.2.8",
+		Source:        lint.CABFEVGuidelines,
+		EffectiveDate: util.CABAltRegNumEvDate,
+		Lint:          NewEvOrgIdEncoding,
+	})
+}
+
+func NewEvOrgIdEncoding() lint.LintInterface {
+	return &evOrgIdEncoding{}
 }
 
 func (l *evOrgIdEncoding) CheckApplies(c *x509.Certificate) bool {
@@ -63,15 +73,4 @@ func (l *evOrgIdEncoding) Execute(c *x509.Certificate) *lint.LintResult {
 		}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_ev_orgid_encoding",
-		Description:   "The organizationIdentifier MUST be encoded as a PrintableString or UTF8String",
-		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sec. 9.2.8",
-		Source:        lint.CABFEVGuidelines,
-		EffectiveDate: util.CABAltRegNumEvDate,
-		Lint:          &evOrgIdEncoding{},
-	})
 }

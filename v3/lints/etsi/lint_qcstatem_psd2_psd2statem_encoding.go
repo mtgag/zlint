@@ -22,8 +22,19 @@ import (
 
 type qcStatemPsd2Pd2StatemEnc struct{}
 
-func (l *qcStatemPsd2Pd2StatemEnc) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_psd2_psd2statem_encoding",
+		Description:   "This test checks that a PSD2 QcStatement has the correct encoding.",
+		Citation:      "ETSI TS 119 495, 'Annex A (normative): ASN.1 Declaration'",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
+		Lint:          NewQcStatemPsd2Pd2StatemEnc,
+	})
+}
+
+func NewQcStatemPsd2Pd2StatemEnc() lint.LintInterface {
+	return &qcStatemPsd2Pd2StatemEnc{}
 }
 
 func (l *qcStatemPsd2Pd2StatemEnc) CheckApplies(c *x509.Certificate) bool {
@@ -40,15 +51,4 @@ func (l *qcStatemPsd2Pd2StatemEnc) Execute(c *x509.Certificate) *lint.LintResult
 		return &lint.LintResult{Status: lint.Error, Details: qcs.GetErrorInfo()}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_psd2statem_encoding",
-		Description:   "This test checks that a PSD2 QcStatement has the correct encoding.",
-		Citation:      "ETSI TS 119 495, 'Annex A (normative): ASN.1 Declaration'",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
-		Lint:          &qcStatemPsd2Pd2StatemEnc{},
-	})
 }

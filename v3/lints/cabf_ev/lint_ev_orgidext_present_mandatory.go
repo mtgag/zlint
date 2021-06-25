@@ -22,8 +22,19 @@ import (
 
 type evOrgIdExtPresentMandatory struct{}
 
-func (l *evOrgIdExtPresentMandatory) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_ev_orgidext_present_mandatory",
+		Description:   "If the subject:organizationIdentifier field is present, checks that the CAB/F organization identifier extension is also present. ",
+		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sec. 9.8.2",
+		Source:        lint.CABFEVGuidelines,
+		EffectiveDate: util.CABAltRegNumEvExtMandDate,
+		Lint:          NewEvOrgIdExtPresentMandatory,
+	})
+}
+
+func NewEvOrgIdExtPresentMandatory() lint.LintInterface {
+	return &evOrgIdExtPresentMandatory{}
 }
 
 func (l *evOrgIdExtPresentMandatory) CheckApplies(c *x509.Certificate) bool {
@@ -39,15 +50,4 @@ func (l *evOrgIdExtPresentMandatory) Execute(c *x509.Certificate) *lint.LintResu
 		return &lint.LintResult{Status: lint.Error, Details: "subject:organizationIdentifier field is present in an EV certificate but the CA/Browser Forum Organization Identifier Field Extension is missing"}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_ev_orgidext_present_mandatory",
-		Description:   "If the subject:organizationIdentifier field is present, checks that the CAB/F organization identifier extension is also present. ",
-		Citation:      "CA/Browser Forum EV Guidelines v1.7, Sec. 9.8.2",
-		Source:        lint.CABFEVGuidelines,
-		EffectiveDate: util.CABAltRegNumEvExtMandDate,
-		Lint:          &evOrgIdExtPresentMandatory{},
-	})
 }

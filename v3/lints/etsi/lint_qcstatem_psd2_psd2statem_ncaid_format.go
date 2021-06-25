@@ -22,8 +22,19 @@ import (
 
 type qcStatemPsd2Psd2StatemNcaidFormat struct{}
 
-func (l *qcStatemPsd2Psd2StatemNcaidFormat) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_psd2_psd2statem_ncaid_format",
+		Description:   "Checks that the NCAId field of the PSD2 QcStatement has the correct syntax.",
+		Citation:      "ETSI TS 119 495, '5.2.3 Name and identifier of the competent authority'",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
+		Lint:          NewQcStatemPsd2Psd2StatemNcaidFormat,
+	})
+}
+
+func NewQcStatemPsd2Psd2StatemNcaidFormat() lint.LintInterface {
+	return &qcStatemPsd2Psd2StatemNcaidFormat{}
 }
 
 func (l *qcStatemPsd2Psd2StatemNcaidFormat) CheckApplies(c *x509.Certificate) bool {
@@ -45,15 +56,4 @@ func (l *qcStatemPsd2Psd2StatemNcaidFormat) Execute(c *x509.Certificate) *lint.L
 		return &lint.LintResult{Status: lint.Error, Details: "NCAId field (country-NcaId) in PSD2 QcStatement has invalid format"}
 	}
 	return &lint.LintResult{Status: lint.Pass}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_psd2statem_ncaid_format",
-		Description:   "Checks that the NCAId field of the PSD2 QcStatement has the correct syntax.",
-		Citation:      "ETSI TS 119 495, '5.2.3 Name and identifier of the competent authority'",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiEn319_412_5_V2_2_1_Date,
-		Lint:          &qcStatemPsd2Psd2StatemNcaidFormat{},
-	})
 }

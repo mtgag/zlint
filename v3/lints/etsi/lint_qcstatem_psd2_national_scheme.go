@@ -15,9 +15,9 @@ package etsi
  */
 
 import (
-	"encoding/asn1"
 	"regexp"
 
+	"github.com/zmap/zcrypto/encoding/asn1"
 	"github.com/zmap/zcrypto/x509"
 	"github.com/zmap/zlint/v3/lint"
 	"github.com/zmap/zlint/v3/util"
@@ -25,8 +25,19 @@ import (
 
 type qcStatemPsd2NationalScheme struct{}
 
-func (l *qcStatemPsd2NationalScheme) Initialize() error {
-	return nil
+func init() {
+	lint.RegisterLint(&lint.Lint{
+		Name:          "e_qcstatem_psd2_national_scheme",
+		Description:   "This lint applies if in a PSD2 certificate (i.e. featuring the PSD2 QcStatement) the subject:organizationIdentifier has a prefix of the form: 2 arbitrary initial characters followed by a colon. In this case it checks that the remainder of the string also fulfills the national scheme syntax.",
+		Citation:      "ETSI TS 119 495, '5.2.1 PSD2 Authorization Number or other recognized identifier'",
+		Source:        lint.EtsiEsi,
+		EffectiveDate: util.EtsiPSD2Date,
+		Lint:          NewQcStatemPsd2NationalScheme,
+	})
+}
+
+func NewQcStatemPsd2NationalScheme() lint.LintInterface {
+	return &qcStatemPsd2NationalScheme{}
 }
 
 func (l *qcStatemPsd2NationalScheme) CheckApplies(c *x509.Certificate) bool {
@@ -85,15 +96,4 @@ func (l *qcStatemPsd2NationalScheme) Execute(c *x509.Certificate) *lint.LintResu
 	}
 
 	return &lint.LintResult{Status: lint.Error, Details: "did not find URI element within IdQcsPkixQCSyntaxV2 Qc Statement, which is mandatory for the national scheme format of the subject:organizationIdentifier"}
-}
-
-func init() {
-	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_national_scheme",
-		Description:   "This lint applies if in a PSD2 certificate (i.e. featuring the PSD2 QcStatement) the subject:organizationIdentifier has a prefix of the form: 2 arbitrary initial characters followed by a colon. In this case it checks that the remainder of the string also fulfills the national scheme syntax.",
-		Citation:      "ETSI TS 119 495, '5.2.1 PSD2 Authorization Number or other recognized identifier'",
-		Source:        lint.EtsiEsi,
-		EffectiveDate: util.EtsiPSD2Date,
-		Lint:          &qcStatemPsd2NationalScheme{},
-	})
 }
