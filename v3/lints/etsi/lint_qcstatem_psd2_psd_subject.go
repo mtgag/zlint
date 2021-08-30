@@ -20,24 +20,24 @@ import (
 	"github.com/zmap/zlint/v3/util"
 )
 
-type qcStatemPsd2Psd struct{}
+type qcStatemPsd2PsdSubject struct{}
 
 func init() {
 	lint.RegisterLint(&lint.Lint{
-		Name:          "e_qcstatem_psd2_psd",
+		Name:          "e_qcstatem_psd2_psd_subject",
 		Description:   "Applies to ETSI PSD2 certificates the subject:OrganizationIdentifier of which is of the form 'PSD...' and checks whether the format of the subject:OrganizationIdentifier field is correct and whether the NCAId therein matches the one in the PSD2 statement.",
 		Citation:      "ETSI TS 119 495, '5.2.1 PSD2 Authorization Number or other recognized identifier'",
 		Source:        lint.EtsiEsi,
 		EffectiveDate: util.EtsiPSD2Date,
-		Lint:          NewQcStatemPsd2Psd,
+		Lint:          NewQcStatemPsd2PsdSubject,
 	})
 }
 
-func NewQcStatemPsd2Psd() lint.LintInterface {
-	return &qcStatemPsd2Psd{}
+func NewQcStatemPsd2PsdSubject() lint.LintInterface {
+	return &qcStatemPsd2PsdSubject{}
 }
 
-func (l *qcStatemPsd2Psd) CheckApplies(c *x509.Certificate) bool {
+func (l *qcStatemPsd2PsdSubject) CheckApplies(c *x509.Certificate) bool {
 	_, isPresent := util.IsQcStatemPresent(c, &util.IdEtsiPsd2Statem)
 	if !isPresent {
 		return false
@@ -48,7 +48,7 @@ func (l *qcStatemPsd2Psd) CheckApplies(c *x509.Certificate) bool {
 	return false
 }
 
-func (l *qcStatemPsd2Psd) Execute(c *x509.Certificate) *lint.LintResult {
+func (l *qcStatemPsd2PsdSubject) Execute(c *x509.Certificate) *lint.LintResult {
 	orgId := util.GetSubjectOrgId(c.RawSubject)
 	if orgId.ErrorString != "" {
 

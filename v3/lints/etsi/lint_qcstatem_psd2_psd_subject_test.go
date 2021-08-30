@@ -21,7 +21,7 @@ import (
 	"github.com/zmap/zlint/v3/test"
 )
 
-func TestQcStatemPsd2Psd(t *testing.T) {
+func TestQcStatemPsd2PsdSubject(t *testing.T) {
 	m := map[string]lint.LintStatus{
 		"QcStmtPsd2Cert01InvalidRoles.pem":                lint.Pass,
 		"QcStmtPsd2Cert02Psd2ExtInvNcaId.pem":             lint.Error,
@@ -69,7 +69,7 @@ func TestQcStatemPsd2Psd(t *testing.T) {
 		"EvAltRegNumCert56JurContryNotMatching.pem":       lint.NA,
 	}
 	for inputPath, expected := range m {
-		out := test.TestLint("e_qcstatem_psd2_psd", inputPath)
+		out := test.TestLint("e_qcstatem_psd2_psd_subject", inputPath)
 
 		if out.Status != expected {
 			t.Errorf("%s: expected %s, got %s", inputPath, expected, out.Status)
