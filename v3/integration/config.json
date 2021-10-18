@@ -636,7 +636,6 @@
     "e_wrong_time_format_pre2050": {
       "ErrCount": 19
     },
-<<<<<<< HEAD
     "e_qcstatem_psd2_psd2statem_ncaid_format": {
       "ErrCount": 2
     },
@@ -648,10 +647,9 @@
     },
     "e_ev_ntr_subject_jurisdiction_serial": {
       "ErrCount": 2
-=======
+    },
     "e_ev_not_wildcard": {
       "ErrCount": 1
->>>>>>> 9113ed8c1f1dd14ca6e19e2d6096fdda8885dd09
     },
     "n_ca_digital_signature_not_set": {
       "NoticeCount": 724
