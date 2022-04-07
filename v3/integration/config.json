@@ -783,11 +783,16 @@
     "w_subject_given_name_recommended_max_length": {},
     "w_subject_surname_recommended_max_length": {},
     "w_tls_server_cert_valid_time_longer_than_397_days": {},
+<<<<<<< HEAD
     "w_qcstatem_psd2_psd2statem_ncaid_eulist": {
       "WarnCount": 2
     },
     "w_qcstatem_psd2_policy_recommended": {
       "WarnCount": 853
+=======
+    "e_no_underscores_before_1_6_2": {
+      "ErrCount": 340
+>>>>>>> b3be71cf576a4f17272f675f5ee9cda66ccbabd5
     }
   }
 }
