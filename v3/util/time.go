@@ -74,6 +74,7 @@ var (
 	AppleReducedLifetimeDate                         = time.Date(2020, time.September, 1, 0, 0, 0, 0, time.UTC)
 	CABFBRs_1_7_9_Date                               = time.Date(2021, time.August, 16, 0, 0, 0, 0, time.UTC)
 	CABFBRs_1_8_0_Date                               = time.Date(2021, time.August, 25, 0, 0, 0, 0, time.UTC)
+	CABFBRs_2_0_0_Date                               = time.Date(2023, time.September, 15, 0, 0, 0, 0, time.UTC)
 	NoReservedDomainLabelsDate                       = time.Date(2021, time.October, 1, 0, 0, 0, 0, time.UTC)
 	CABFBRs_OU_Prohibited_Date                       = time.Date(2022, time.September, 1, 0, 0, 0, 0, time.UTC)
 	EtsiPSD2Date                                     = time.Date(2018, time.November, 1, 0, 0, 0, 0, time.UTC)
@@ -84,6 +85,8 @@ var (
 	CABFBRs_1_8_7_Date = time.Date(2023, time.July, 15, 0, 0, 0, 0, time.UTC)
 	// Updates to the CABF BRs and EVGLs from Ballot SC 062 https://cabforum.org/2023/03/17/ballot-sc62v2-certificate-profiles-update/
 	SC62EffectiveDate = time.Date(2023, time.September, 15, 0, 0, 0, 0, time.UTC)
+	// Date when section 9.2.8 of CABF EVG became effective
+	CABFEV_Sec9_2_8_Date = time.Date(2020, time.January, 31, 0, 0, 0, 0, time.UTC)
 )
 
 var (
