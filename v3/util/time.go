@@ -86,12 +86,18 @@ var (
 	CABFBRs_2_0_8_Date                               = time.Date(2024, time.October, 2, 0, 0, 0, 0, time.UTC)
 	NoReservedDomainLabelsDate                       = time.Date(2021, time.October, 1, 0, 0, 0, 0, time.UTC)
 	CABFBRs_OU_Prohibited_Date                       = time.Date(2022, time.September, 1, 0, 0, 0, 0, time.UTC)
+<<<<<<< HEAD
 	EtsiPSD2Date                                     = time.Date(2018, time.November, 1, 0, 0, 0, 0, time.UTC)
 	CABAltRegNumEvExtMandDate                        = time.Date(2020, time.January, 31, 0, 0, 0, 0, time.UTC)
 	CABAltRegNumEvDate                               = time.Date(2019, time.June, 21, 0, 0, 0, 0, time.UTC)
 
 	SC17EffectiveDate         = time.Date(2019, time.June, 21, 0, 0, 0, 0, time.UTC)
 	CABF_SMIME_BRs_1_0_0_Date = time.Date(2023, time.September, 1, 0, 0, 0, 0, time.UTC)
+=======
+	SC16EffectiveDate                                = time.Date(2019, time.April, 16, 0, 0, 0, 0, time.UTC)
+	SC17EffectiveDate                                = time.Date(2019, time.June, 21, 0, 0, 0, 0, time.UTC)
+	CABF_SMIME_BRs_1_0_0_Date                        = time.Date(2023, time.September, 1, 0, 0, 0, 0, time.UTC)
+>>>>>>> 168649fce78aa10815c33f2307ec46846d10459c
 	// Enforcement date of CRL reason codes from Ballot SC 061
 	CABFBRs_1_8_7_Date = time.Date(2023, time.July, 15, 0, 0, 0, 0, time.UTC)
 	// Updates to the CABF BRs and EVGLs from Ballot SC 062 https://cabforum.org/2023/03/17/ballot-sc62v2-certificate-profiles-update/
