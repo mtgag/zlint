@@ -656,7 +656,7 @@ var tldMap = map[string]GTLDPeriod{
 	"bentley": {
 		GTLD:           "bentley",
 		DelegationDate: "2015-07-09",
-		RemovalDate:    "",
+		RemovalDate:    "2025-04-23",
 	},
 	"berlin": {
 		GTLD:           "berlin",
@@ -3426,7 +3426,7 @@ var tldMap = map[string]GTLDPeriod{
 	"kerrylogistics": {
 		GTLD:           "kerrylogistics",
 		DelegationDate: "2016-03-05",
-		RemovalDate:    "",
+		RemovalDate:    "2025-02-27",
 	},
 	"kerryproperties": {
 		GTLD:           "kerryproperties",
@@ -3776,7 +3776,7 @@ var tldMap = map[string]GTLDPeriod{
 	"lipsy": {
 		GTLD:           "lipsy",
 		DelegationDate: "2016-05-03",
-		RemovalDate:    "",
+		RemovalDate:    "2025-02-27",
 	},
 	"live": {
 		GTLD:           "live",
