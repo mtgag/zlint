@@ -81,18 +81,18 @@ var (
 	SubjectJurisdictionLocalityNameOID        = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 311, 60, 2, 1, 1}
 	SubjectJurisdictionStateOrProvinceNameOID = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 311, 60, 2, 1, 2}
 	SubjectJurisdictionCountryNameOID         = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 311, 60, 2, 1, 3}
-	CommonNameOID             = asn1.ObjectIdentifier{2, 5, 4, 3}
-	SurnameOID                = asn1.ObjectIdentifier{2, 5, 4, 4}
-	SerialOID                 = asn1.ObjectIdentifier{2, 5, 4, 5}
-	CountryNameOID            = asn1.ObjectIdentifier{2, 5, 4, 6}
-	LocalityNameOID           = asn1.ObjectIdentifier{2, 5, 4, 7}
-	StateOrProvinceNameOID    = asn1.ObjectIdentifier{2, 5, 4, 8}
-	StreetAddressOID          = asn1.ObjectIdentifier{2, 5, 4, 9}
-	OrganizationNameOID       = asn1.ObjectIdentifier{2, 5, 4, 10}
-	OrganizationalUnitNameOID = asn1.ObjectIdentifier{2, 5, 4, 11}
-	BusinessOID               = asn1.ObjectIdentifier{2, 5, 4, 15}
-	PostalCodeOID             = asn1.ObjectIdentifier{2, 5, 4, 17}
-	GivenNameOID              = asn1.ObjectIdentifier{2, 5, 4, 42}
+	CommonNameOID                             = asn1.ObjectIdentifier{2, 5, 4, 3}
+	SurnameOID                                = asn1.ObjectIdentifier{2, 5, 4, 4}
+	SerialOID                                 = asn1.ObjectIdentifier{2, 5, 4, 5}
+	CountryNameOID                            = asn1.ObjectIdentifier{2, 5, 4, 6}
+	LocalityNameOID                           = asn1.ObjectIdentifier{2, 5, 4, 7}
+	StateOrProvinceNameOID                    = asn1.ObjectIdentifier{2, 5, 4, 8}
+	StreetAddressOID                          = asn1.ObjectIdentifier{2, 5, 4, 9}
+	OrganizationNameOID                       = asn1.ObjectIdentifier{2, 5, 4, 10}
+	OrganizationalUnitNameOID                 = asn1.ObjectIdentifier{2, 5, 4, 11}
+	BusinessOID                               = asn1.ObjectIdentifier{2, 5, 4, 15}
+	PostalCodeOID                             = asn1.ObjectIdentifier{2, 5, 4, 17}
+	GivenNameOID                              = asn1.ObjectIdentifier{2, 5, 4, 42}
 	// SAN otherNames
 	OidIdOnSmtpUtf8Mailbox = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 8, 9}
 	// Hash algorithms - see https://golang.org/src/crypto/x509/x509.go
@@ -132,6 +132,8 @@ var (
 	IdEtsiPolicyQcpNaturalQscd        = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 2}
 	IdEtsiPolicyQcpLegalQscd          = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 3}
 	IdEtsiPolicyQcpWeb                = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 4}
+	IdEtsiPolicyQncpWeb               = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 5}
+	IdEtsiPolicyQncpWebGen            = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 6}
 	IdQcsPkixQCSyntaxV2               = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 11, 2}
 	CabfSubjectOrganizationIdentifier = asn1.ObjectIdentifier{2, 5, 4, 97}
 )

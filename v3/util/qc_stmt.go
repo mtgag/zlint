@@ -141,7 +141,7 @@ const (
 	RoleIc Psd2RoleOfPspType = 4
 )
 
-// 	=== ASN.1 Types ==>
+// === ASN.1 Types ==>
 type Psd2RoleOfPsp struct {
 	RoleType      asn1.ObjectIdentifier
 	RoleOfPspName string `asn1:"utf8"`
@@ -271,7 +271,13 @@ func GetEtsiQcTypes(c *x509.Certificate) []asn1.ObjectIdentifier {
 
 func HasCertAnyEtsiQcpPolicy(c *x509.Certificate) bool {
 	for _, p := range c.PolicyIdentifiers {
-		if p.Equal(IdEtsiPolicyQcpNatural) || p.Equal(IdEtsiPolicyQcpLegal) || p.Equal(IdEtsiPolicyQcpNaturalQscd) || p.Equal(IdEtsiPolicyQcpLegalQscd) || p.Equal(IdEtsiPolicyQcpWeb) {
+		if p.Equal(IdEtsiPolicyQcpNatural) ||
+			p.Equal(IdEtsiPolicyQcpLegal) ||
+			p.Equal(IdEtsiPolicyQcpNaturalQscd) ||
+			p.Equal(IdEtsiPolicyQcpLegalQscd) ||
+			p.Equal(IdEtsiPolicyQcpWeb) ||
+			p.Equal(IdEtsiPolicyQncpWeb) ||
+			p.Equal(IdEtsiPolicyQncpWebGen) {
 			return true
 		}
 	}
