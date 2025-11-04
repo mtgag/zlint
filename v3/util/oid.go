@@ -78,6 +78,7 @@ var (
 	SMIMEBRIndividualValidatedMultipurposeOID   = asn1.ObjectIdentifier{2, 23, 140, 1, 5, 4, 2} // CA/B SMIME BR Individual Validated, Multipurpose
 	SMIMEBRIndividualValidatedStrictOID         = asn1.ObjectIdentifier{2, 23, 140, 1, 5, 4, 3} // CA/B SMIME BR Individual Validated, Strict
 	//X.500 attribute types
+<<<<<<< HEAD
 	OrganizationIdentifierOID                 = asn1.ObjectIdentifier{2, 5, 4, 97}
 	SubjectJurisdictionLocalityNameOID        = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 311, 60, 2, 1, 1}
 	SubjectJurisdictionStateOrProvinceNameOID = asn1.ObjectIdentifier{1, 3, 6, 1, 4, 1, 311, 60, 2, 1, 2}
@@ -94,6 +95,21 @@ var (
 	BusinessOID                               = asn1.ObjectIdentifier{2, 5, 4, 15}
 	PostalCodeOID                             = asn1.ObjectIdentifier{2, 5, 4, 17}
 	GivenNameOID                              = asn1.ObjectIdentifier{2, 5, 4, 42}
+=======
+	CommonNameOID             = asn1.ObjectIdentifier{2, 5, 4, 3}
+	SurnameOID                = asn1.ObjectIdentifier{2, 5, 4, 4}
+	SerialOID                 = asn1.ObjectIdentifier{2, 5, 4, 5}
+	CountryNameOID            = asn1.ObjectIdentifier{2, 5, 4, 6}
+	LocalityNameOID           = asn1.ObjectIdentifier{2, 5, 4, 7}
+	StateOrProvinceNameOID    = asn1.ObjectIdentifier{2, 5, 4, 8}
+	StreetAddressOID          = asn1.ObjectIdentifier{2, 5, 4, 9}
+	OrganizationNameOID       = asn1.ObjectIdentifier{2, 5, 4, 10}
+	OrganizationalUnitNameOID = asn1.ObjectIdentifier{2, 5, 4, 11}
+	BusinessOID               = asn1.ObjectIdentifier{2, 5, 4, 15}
+	PostalCodeOID             = asn1.ObjectIdentifier{2, 5, 4, 17}
+	GivenNameOID              = asn1.ObjectIdentifier{2, 5, 4, 42}
+	EmailAddressOID           = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 9, 1}
+>>>>>>> f201c988086036a034ed7fc4f6b3b681711bd97f
 	// SAN otherNames
 	OidIdOnSmtpUtf8Mailbox = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 8, 9}
 	// Hash algorithms - see https://golang.org/src/crypto/x509/x509.go
