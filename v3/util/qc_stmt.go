@@ -407,7 +407,6 @@ func ParseQcStatem(extVal []byte, sought asn1.ObjectIdentifier) EtsiQcStmtIf {
 
 }
 
-<<<<<<< HEAD
 func handleIdQcsPkixQCSyntaxV2(statem qcStatementWithInfoField) EtsiQcStmtIf {
 	var qcs2Statem DecodedQcS2
 	qcs2Statem.isPresent = true
@@ -528,7 +527,8 @@ func handleIdEtsiQcsQcCompliance(statem qcStatementWithInfoField, raw anyContent
 	AppendToStringSemicolonDelim(&etsiObj.errorInfo, CheckAsn1Reencoding(reflect.ValueOf(statemWithoutInfo).Interface(), raw.Raw,
 		"invalid format of ETSI Complicance statement"))
 	return etsiObj
-=======
+}
+
 /************************************************
 
 https://www.etsi.org/deliver/etsi_en/319400_319499/31941102/02.06.01_60/en_31941102v020601p.pdf
@@ -567,5 +567,4 @@ func IsEtsiQcNaturalPerson(cert *x509.Certificate) bool {
 		}
 	}
 	return false
->>>>>>> b88ecfaefc52eae6101a33257efc62cc5993ce95
 }
