@@ -94,6 +94,7 @@ var (
 	BusinessOID               = asn1.ObjectIdentifier{2, 5, 4, 15}
 	PostalCodeOID             = asn1.ObjectIdentifier{2, 5, 4, 17}
 	GivenNameOID              = asn1.ObjectIdentifier{2, 5, 4, 42}
+	PseudonameOID             = asn1.ObjectIdentifier{2, 5, 4, 65}
 	EmailAddressOID           = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 9, 1}
 	// SAN otherNames
 	OidIdOnSmtpUtf8Mailbox = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 8, 9}
@@ -102,6 +103,7 @@ var (
 	SHA384OID = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 2}
 	SHA512OID = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 3}
 	// other OIDs
+<<<<<<< HEAD
 	OidRSAEncryption                  = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 1}
 	OidRSASSAPSS                      = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 10}
 	OidMD2WithRSAEncryption           = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 2}
@@ -138,6 +140,36 @@ var (
 	IdEtsiPolicyQncpWebGen            = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 6}
 	IdQcsPkixQCSyntaxV2               = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 11, 2}
 	CabfSubjectOrganizationIdentifier = asn1.ObjectIdentifier{2, 5, 4, 97}
+=======
+	OidRSAEncryption           = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 1}
+	OidRSASSAPSS               = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 10}
+	OidMD2WithRSAEncryption    = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 2}
+	OidMD5WithRSAEncryption    = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 4}
+	OidSHA1WithRSAEncryption   = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 5}
+	OidSHA224WithRSAEncryption = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 14}
+	OidSHA256WithRSAEncryption = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 11}
+	OidSHA384WithRSAEncryption = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 12}
+	OidSHA512WithRSAEncryption = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 13}
+	AnyPolicyOID               = asn1.ObjectIdentifier{2, 5, 29, 32, 0}
+	UserNoticeOID              = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 2, 2}
+	CpsOID                     = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 2, 1}
+	IdEtsiQcsQcCompliance      = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 1}
+	IdEtsiQcsQcLimitValue      = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 2}
+	IdEtsiQcsQcRetentionPeriod = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 3}
+	IdEtsiQcsQcSSCD            = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 4}
+	IdEtsiQcsQcEuPDS           = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 5}
+	IdEtsiQcsQcType            = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 6}
+	IdEtsiQcsQctEsign          = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 6, 1}
+	IdEtsiQcsQctEseal          = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 6, 2}
+	IdEtsiQcsQctWeb            = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 6, 3}
+	QCPnPolicyOID              = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 0}
+	QCPlPolicyOID              = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 1}
+	QCPnqscdPolicyOID          = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 2}
+	QCPlqscdPolicyOID          = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 3}
+	QEVCPwPolicyOID            = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 4}
+	QNCPwPolicyOID             = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 5}
+	QNCPwgenPolicyOID          = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 6}
+>>>>>>> b88ecfaefc52eae6101a33257efc62cc5993ce95
 )
 
 const (
