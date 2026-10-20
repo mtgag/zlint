@@ -1,5 +1,5 @@
 /*
- * ZLint Copyright 2024 Regents of the University of Michigan
+ * ZLint Copyright 2026 Regents of the University of Michigan
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy
@@ -103,6 +103,7 @@ var (
 	SHA384OID = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 2}
 	SHA512OID = asn1.ObjectIdentifier{2, 16, 840, 1, 101, 3, 4, 2, 3}
 	// other OIDs
+<<<<<<< HEAD
 	OidRSAEncryption                  = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 1}
 	OidRSASSAPSS                      = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 10}
 	OidMD2WithRSAEncryption           = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 2}
@@ -146,6 +147,39 @@ var (
 	QEVCPwPolicyOID                   = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 4}
 	QNCPwPolicyOID                    = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 5}
 	QNCPwgenPolicyOID                 = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 6}
+=======
+	OidRSAEncryption           = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 1}
+	OidRSASSAPSS               = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 10}
+	OidMD2WithRSAEncryption    = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 2}
+	OidMD5WithRSAEncryption    = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 4}
+	OidSHA1WithRSAEncryption   = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 5}
+	OidSHA224WithRSAEncryption = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 14}
+	OidSHA256WithRSAEncryption = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 11}
+	OidSHA384WithRSAEncryption = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 12}
+	OidSHA512WithRSAEncryption = asn1.ObjectIdentifier{1, 2, 840, 113549, 1, 1, 13}
+	AnyPolicyOID               = asn1.ObjectIdentifier{2, 5, 29, 32, 0}
+	UserNoticeOID              = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 2, 2}
+	CpsOID                     = asn1.ObjectIdentifier{1, 3, 6, 1, 5, 5, 7, 2, 1}
+	IdEtsiQcsQcCompliance      = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 1}
+	IdEtsiQcsQcLimitValue      = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 2}
+	IdEtsiQcsQcRetentionPeriod = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 3}
+	IdEtsiQcsQcSSCD            = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 4}
+	IdEtsiQcsQcEuPDS           = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 5}
+	IdEtsiQcsQcType            = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 6}
+	IdEtsiQcsQctEsign          = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 6, 1}
+	IdEtsiQcsQctEseal          = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 6, 2}
+	IdEtsiQcsQctWeb            = asn1.ObjectIdentifier{0, 4, 0, 1862, 1, 6, 3}
+	QCPnPolicyOID              = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 0}
+	QCPlPolicyOID              = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 1}
+	QCPnqscdPolicyOID          = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 2}
+	QCPlqscdPolicyOID          = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 3}
+	QEVCPwPolicyOID            = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 4}
+	QNCPwPolicyOID             = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 5}
+	QNCPwgenPolicyOID          = asn1.ObjectIdentifier{0, 4, 0, 194112, 1, 6}
+	IdEtsiPsd2Statem           = asn1.ObjectIdentifier{0, 4, 0, 19495, 2}    // ETSI TS 119 495 V1.1.2, Annex A: id-etsi-psd2-qcStatement
+	IdEtsiPsd2RolePspCb        = asn1.ObjectIdentifier{0, 4, 0, 19495, 1, 5} // ETSI TS 119 495, Annex A: id-psd2-role-psp-cb (Central Bank)
+	IdEtsiPsd2RolePspPa        = asn1.ObjectIdentifier{0, 4, 0, 19495, 1, 6} // ETSI TS 119 495, Annex A: id-psd2-role-psp-pa (Public authority)
+>>>>>>> 5aff22ec15100469320bfdbfcc08aefd7c849a6c
 )
 
 const (
