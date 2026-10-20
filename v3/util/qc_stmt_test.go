@@ -77,6 +77,20 @@ func TestParseQcStatemPsd2Valid(t *testing.T) {
 	if psd2Result.Decoded.NCAId != "ES-BDE" {
 		t.Fatalf("expected NCAId %q, got %q", "ES-BDE", psd2Result.Decoded.NCAId)
 	}
+
+	legacy := psd2Result.DecodedPsd2Statm
+	if len(legacy.Roles) != 1 {
+		t.Fatalf("expected 1 legacy role, got %d", len(legacy.Roles))
+	}
+	if !legacy.Roles[0].RoleType.Equal(IdEtsiPsd2RolePspAs) || legacy.Roles[0].RoleOfPspName != "PSP_AS" {
+		t.Fatalf("unexpected legacy role: %+v", legacy.Roles[0])
+	}
+	if legacy.NCAName != psd2Result.Decoded.NCAName || legacy.CountryAndNCAId != psd2Result.Decoded.NCAId {
+		t.Fatalf("legacy NCA fields disagree with the decoded statement: %+v", legacy)
+	}
+	if psd2Result.GetNcaCountry() != "ES" || psd2Result.GetNcaId() != "BDE" {
+		t.Fatalf("unexpected NCA country/ID: %q/%q", psd2Result.GetNcaCountry(), psd2Result.GetNcaId())
+	}
 }
 
 func TestParseQcStatemPsd2MalformedEncoding(t *testing.T) {

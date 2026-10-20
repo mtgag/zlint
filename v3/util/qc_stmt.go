@@ -18,13 +18,10 @@ import (
 	"bytes"
 	"fmt"
 	"reflect"
-<<<<<<< HEAD
 	"regexp"
 	"strings"
 	"unicode"
-=======
 	"unicode/utf8"
->>>>>>> 5aff22ec15100469320bfdbfcc08aefd7c849a6c
 
 	"github.com/zmap/zcrypto/encoding/asn1"
 	"github.com/zmap/zcrypto/x509"
@@ -120,7 +117,6 @@ type EtsiQcPds struct {
 	PdsLocations []PdsLocation
 }
 
-<<<<<<< HEAD
 // ==== QcStatement 2 (RFC3739)types ===>
 
 type DecodedQcS2 struct {
@@ -130,7 +126,12 @@ type DecodedQcS2 struct {
 type QcStatemt2 struct {
 	SemanticsId        asn1.ObjectIdentifier       `asn1:"optional"`
 	NameRegAuthorities NameRegistrationAuthorities `asn1:"optional"`
-=======
+}
+
+type NameRegistrationAuthorities []asn1.RawValue
+
+// <=== QcStatement 2 (RFC3739)types ====
+
 type RoleOfPSP struct {
 	RoleOfPspOid  asn1.ObjectIdentifier
 	RoleOfPspName string `asn1:"utf8"`
@@ -144,7 +145,8 @@ type PSD2QcType struct {
 
 type EtsiPsd2 struct {
 	etsiBase
-	Decoded PSD2QcType
+	Decoded          PSD2QcType
+	DecodedPsd2Statm EtsiPsd2QcStatem
 }
 
 // IsPsd2CentralBankOrPublicAuthority reports whether roles declares a PSP_CB
@@ -159,18 +161,6 @@ func IsPsd2CentralBankOrPublicAuthority(roles []RoleOfPSP) bool {
 	}
 	return false
 }
-
-func AppendToStringSemicolonDelim(this *string, s string) {
-	if len(*this) > 0 && len(s) > 0 {
-		(*this) += "; "
-	}
-	(*this) += s
->>>>>>> 5aff22ec15100469320bfdbfcc08aefd7c849a6c
-}
-
-type NameRegistrationAuthorities []asn1.RawValue
-
-// <=== QcStatement 2 (RFC3739)types ====
 
 // ==== PSD2 QcStatement types ===>
 type Psd2RoleOfPspType int
@@ -195,11 +185,6 @@ type EtsiPsd2QcStatem struct {
 }
 
 // 	<== ASN.1 Types ===
-
-type EtsiPsd2 struct {
-	etsiBase
-	DecodedPsd2Statm EtsiPsd2QcStatem
-}
 
 func (this EtsiPsd2) getCountryAndNcaId() (string, string) {
 	runes := []rune(this.DecodedPsd2Statm.CountryAndNCAId)
@@ -237,7 +222,6 @@ func CheckAsn1ReencodingWithParams(i interface{}, originalEncoding []byte, appen
 	return result
 }
 
-<<<<<<< HEAD
 func CertHasSubjectOrgIdWithPrefix(c *x509.Certificate, prefix string) bool {
 
 	if !IsExtInCert(c, QcStateOid) {
@@ -358,7 +342,6 @@ func HasCertAnyEtsiQcStatement(c *x509.Certificate) bool {
 	return IsAnyEtsiQcStatementPresent(ext.Value)
 }
 
-=======
 // psd2NameFieldMinLen and psd2NameFieldMaxLen are the SIZE(1..256) bounds
 // that ETSI TS 119 495, Annex A places on the NCAName, NCAId, and
 // RoleOfPspName UTF8String fields of PSD2QcType.
@@ -387,7 +370,6 @@ func checkPsd2QcTypeSizeConstraints(psd2 PSD2QcType) string {
 	return result
 }
 
->>>>>>> 5aff22ec15100469320bfdbfcc08aefd7c849a6c
 func IsAnyEtsiQcStatementPresent(extVal []byte) bool {
 	for _, oid := range EtsiQcStmtOidList {
 		r := ParseQcStatem(extVal, *oid)
@@ -465,33 +447,11 @@ func ParseQcStatem(extVal []byte, sought asn1.ObjectIdentifier) EtsiQcStmtIf {
 		} else if statem.Oid.Equal(IdEtsiQcsQcEuPDS) {
 			return handleIdEtsiQcsQcEuPDS(statem)
 		} else if statem.Oid.Equal(IdEtsiQcsQcType) {
-<<<<<<< HEAD
 			return handleIdEtsiQcsQcType(statem)
 		} else if statem.Oid.Equal(IdEtsiPsd2Statem) {
 			return handleIdEtsiPsd2Statem(statem)
 		} else if statem.Oid.Equal(IdQcsPkixQCSyntaxV2) {
 			return handleIdQcsPkixQCSyntaxV2(statem)
-=======
-			var qcType Etsi423QcType
-			qcType.isPresent = true
-			rest, err := asn1.Unmarshal(statem.Any.FullBytes, &qcType.TypeOids)
-			if len(rest) != 0 || err != nil {
-				return etsiBase{errorInfo: "error parsing IdEtsiQcsQcType extension statementInfo field", isPresent: true}
-			}
-			return qcType
-		} else if statem.Oid.Equal(IdEtsiPsd2Statem) {
-			etsiObj := EtsiPsd2{etsiBase: etsiBase{isPresent: true}}
-			rest, err := asn1.Unmarshal(statem.Any.FullBytes, &etsiObj.Decoded)
-			if len(rest) != 0 || err != nil {
-				etsiObj.errorInfo = "error parsing the statementInfo field"
-			} else {
-				AppendToStringSemicolonDelim(&etsiObj.errorInfo,
-					checkAsn1Reencoding(reflect.ValueOf(etsiObj.Decoded).Interface(), statem.Any.FullBytes,
-						"error with ASN.1 encoding, possibly a wrong ASN.1 string type was used"))
-				AppendToStringSemicolonDelim(&etsiObj.errorInfo, checkPsd2QcTypeSizeConstraints(etsiObj.Decoded))
-			}
-			return etsiObj
->>>>>>> 5aff22ec15100469320bfdbfcc08aefd7c849a6c
 		} else {
 			return etsiBase{errorInfo: "", isPresent: true}
 		}
@@ -520,21 +480,26 @@ func handleIdQcsPkixQCSyntaxV2(statem qcStatementWithInfoField) EtsiQcStmtIf {
 func handleIdEtsiPsd2Statem(statem qcStatementWithInfoField) EtsiQcStmtIf {
 	var psd2Statem EtsiPsd2
 	psd2Statem.isPresent = true
-	rest, err := asn1.Unmarshal(statem.Any.FullBytes, &psd2Statem.DecodedPsd2Statm)
+	rest, err := asn1.Unmarshal(statem.Any.FullBytes, &psd2Statem.Decoded)
 	if len(rest) != 0 || err != nil {
-		return etsiBase{errorInfo: "error parsing IdEtsiPsd2Statem extension statementInfo field", isPresent: true}
+		psd2Statem.errorInfo = "error parsing the statementInfo field"
+		return psd2Statem
 	}
-	if psd2Statem.DecodedPsd2Statm.CountryAndNCAId == "" || psd2Statem.DecodedPsd2Statm.NCAName == "" {
-		AppendToStringSemicolonDelim(&psd2Statem.errorInfo, "field has length 0")
+	psd2Statem.DecodedPsd2Statm = EtsiPsd2QcStatem{
+		Roles:           make([]Psd2RoleOfPsp, len(psd2Statem.Decoded.RolesOfPSP)),
+		NCAName:         psd2Statem.Decoded.NCAName,
+		CountryAndNCAId: psd2Statem.Decoded.NCAId,
 	}
-	for _, role := range psd2Statem.DecodedPsd2Statm.Roles {
-		if role.RoleOfPspName == "" {
-			AppendToStringSemicolonDelim(&psd2Statem.errorInfo, "field has length 0")
+	for i, role := range psd2Statem.Decoded.RolesOfPSP {
+		psd2Statem.DecodedPsd2Statm.Roles[i] = Psd2RoleOfPsp{
+			RoleType:      role.RoleOfPspOid,
+			RoleOfPspName: role.RoleOfPspName,
 		}
 	}
 	AppendToStringSemicolonDelim(&psd2Statem.errorInfo,
-		CheckAsn1Reencoding(reflect.ValueOf(psd2Statem.DecodedPsd2Statm).Interface(), statem.Any.FullBytes,
+		CheckAsn1Reencoding(reflect.ValueOf(psd2Statem.Decoded).Interface(), statem.Any.FullBytes,
 			"error with ASN.1 encoding, possibly a wrong ASN.1 string type was used"))
+	AppendToStringSemicolonDelim(&psd2Statem.errorInfo, checkPsd2QcTypeSizeConstraints(psd2Statem.Decoded))
 	return psd2Statem
 }
 
